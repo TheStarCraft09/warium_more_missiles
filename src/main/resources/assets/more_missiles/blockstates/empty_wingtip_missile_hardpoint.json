@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=east,hardpoint_type=bottom": {
+      "model": "more_missiles:block/empty_wingtip_missile_hardpoint_bottom"
+    },
+    "facing=east,hardpoint_type=top": {
+      "model": "more_missiles:block/empty_wingtip_missile_hardpoint_top"
+    },
+    "facing=west,hardpoint_type=bottom": {
+      "model": "more_missiles:block/empty_west_wingtip_missile_hardpoint_bottom"
+    },
+    "facing=west,hardpoint_type=top": {
+      "model": "more_missiles:block/empty_west_wingtip_missile_hardpoint_top"
+    },
+    "facing=north,hardpoint_type=bottom": {
+      "model": "more_missiles:block/empty_north_wingtip_missile_hardpoint_bottom"
+    },
+    "facing=north,hardpoint_type=top": {
+      "model": "more_missiles:block/empty_north_wingtip_missile_hardpoint_top"
+    },
+    "facing=south,hardpoint_type=bottom": {
+      "model": "more_missiles:block/empty_south_wingtip_missile_hardpoint_bottom"
+    },
+    "facing=south,hardpoint_type=top": {
+      "model": "more_missiles:block/empty_south_wingtip_missile_hardpoint_top"
+    }
+  }
+}

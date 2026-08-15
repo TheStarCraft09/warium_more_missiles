@@ -82,10 +82,8 @@ repositories {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    // Warium (base mod we're addonning)
-    // fg.deobf remaps this SRG-targeted production jar (incl. any mixin refmap)
-    // to match this dev workspace's MCP naming domain
-    implementation fg.deobf("maven.modrinth:xgjvEen1:7hdXsief")
+    //Warium:
+    implementation fg.deobf("maven.modrinth:xgjvEen1:BFilEMq8")
     // GeckoLib (Warium's only hard dependency) - pinned to 4.8.4 to match runtime testing
     implementation fg.deobf("maven.modrinth:8BmcQJ2H:aC5KMoNg")
 }
