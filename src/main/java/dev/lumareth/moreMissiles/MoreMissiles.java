@@ -1,6 +1,7 @@
 package dev.lumareth.moreMissiles;
 
 import com.mojang.logging.LogUtils;
+import dev.lumareth.moreMissiles.block.ModBlockEntities;
 import dev.lumareth.moreMissiles.block.ModBlocks;
 import dev.lumareth.moreMissiles.item.ModCreativeModeTabs;
 import dev.lumareth.moreMissiles.item.ModItems;
@@ -30,6 +31,7 @@ public class MoreMissiles {
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         ModCreativeModeTabs.WARIUM_MORE_MISSILES.register(modEventBus);
+        ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
         modEventBus.addListener(this::commonSetup);
         MinecraftForge.EVENT_BUS.register(this);
 
