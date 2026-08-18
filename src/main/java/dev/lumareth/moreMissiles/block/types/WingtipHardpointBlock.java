@@ -24,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -85,8 +86,12 @@ public class WingtipHardpointBlock extends HorizontalDirectionalBlock implements
     @Nullable
     public <T extends BlockEntity>BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         return (lvl, pos, st, blockEntity) -> {
-            if (blockEntity instanceof WingtipHardpointBlockEntity be){
-                be.tick();
+            if (!level.isClientSide()) {
+                if (blockEntity instanceof WingtipHardpointBlockEntity be){
+                    be.tick();
+                }
+            } else {
+                return;
             }
         };
     }
