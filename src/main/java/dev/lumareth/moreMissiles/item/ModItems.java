@@ -12,4 +12,5 @@ public class ModItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, MoreMissiles.MOD_ID);
 
     public static final RegistryObject<Item> EMPTY_WINGTIP_MISSILE_HARDPOINT = ITEMS.register("empty_wingtip_missile_hardpoint", () -> new BlockItem(ModBlocks.EMPTY_WINGTIP_MISSILE_HARDPOINT.get(), new Item.Properties()));
+    public static final RegistryObject<Item> ALUMINUM_MISSILE_HARDPOINT = ITEMS.register("aluminum_wing_hardpoint", () -> new BlockItem(ModBlocks.ALUMINUM_WING_HARDPOINT.get(), new Item.Properties()));
 }

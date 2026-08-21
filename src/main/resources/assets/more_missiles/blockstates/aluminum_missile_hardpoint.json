@@ -1,0 +1,67 @@
+{
+  "variants": {
+    "facing=north,missile_type=empty": {
+      "model": "more_missiles:block/aluminum_missile_hardpoint",
+      "y": 180
+    },
+    "facing=south,missile_type=empty": {
+      "model": "more_missiles:block/aluminum_missile_hardpoint"
+    },
+    "facing=east,missile_type=empty": {
+      "model": "more_missiles:block/aluminum_missile_hardpoint",
+      "y": 270
+    },
+    "facing=west,missile_type=empty": {
+      "model": "more_missiles:block/aluminum_missile_hardpoint",
+      "y": 90
+    },
+
+    "facing=north,missile_type=ir": {
+      "model": "more_missiles:block/ir_aluminum_missile_hardpoint",
+      "y": 180
+    },
+    "facing=south,missile_type=ir": {
+      "model": "more_missiles:block/ir_aluminum_missile_hardpoint"
+    },
+    "facing=east,missile_type=ir": {
+      "model": "more_missiles:block/ir_aluminum_missile_hardpoint",
+      "y": 270
+    },
+    "facing=west,missile_type=ir": {
+      "model": "more_missiles:block/ir_aluminum_missile_hardpoint",
+      "y": 90
+    },
+
+    "facing=north,missile_type=sarh": {
+      "model": "more_missiles:block/sarh_aluminum_missile_hardpoint",
+      "y": 180
+    },
+    "facing=south,missile_type=sarh": {
+      "model": "more_missiles:block/sarh_aluminum_missile_hardpoint"
+    },
+    "facing=east,missile_type=sarh": {
+      "model": "more_missiles:block/sarh_aluminum_missile_hardpoint",
+      "y": 270
+    },
+    "facing=west,missile_type=sarh": {
+      "model": "more_missiles:block/sarh_aluminum_missile_hardpoint",
+      "y": 90
+    },
+
+    "facing=north,missile_type=saclocs": {
+      "model": "more_missiles:block/saclocs_aluminum_missile_hardpoint",
+      "y": 180
+    },
+    "facing=south,missile_type=saclocs": {
+      "model": "more_missiles:block/saclocs_aluminum_missile_hardpoint"
+    },
+    "facing=east,missile_type=saclocs": {
+      "model": "more_missiles:block/saclocs_aluminum_missile_hardpoint",
+      "y": 270
+    },
+    "facing=west,missile_type=saclocs": {
+      "model": "more_missiles:block/saclocs_aluminum_missile_hardpoint",
+      "y": 90
+    }
+  }
+}w

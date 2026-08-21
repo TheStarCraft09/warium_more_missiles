@@ -1,0 +1,10 @@
+{
+  "parent": "block/predicates/empty_wing_hardpoint_north",
+  "textures": {
+    "particle": "crusty_chunks:block/aluminumcasingside",
+    "1": "more_missiles:block/aluminum",
+    "2": "more_missiles:block/strikespear"
+  },
+  "render_type": "cutout"
+
+}

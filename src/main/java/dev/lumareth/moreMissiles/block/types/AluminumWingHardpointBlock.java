@@ -1,7 +1,6 @@
 package dev.lumareth.moreMissiles.block.types;
 
-import dev.lumareth.moreMissiles.block.entity.WingtipHardpointBlockEntity;
-import dev.lumareth.moreMissiles.block.states.HardpointType;
+import dev.lumareth.moreMissiles.block.entity.AluminumWingHardpointBlockEntity;
 import dev.lumareth.moreMissiles.block.states.Missiletype;
 import dev.lumareth.moreMissiles.block.states.ModBlockStates;
 import dev.lumareth.moreMissiles.utils.procedures.HardpointProcedures;
@@ -24,36 +23,22 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
-
-public class WingtipHardpointBlock extends HorizontalDirectionalBlock implements EntityBlock {
-    public static final VoxelShape BOTTOM = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D);
-    public static final VoxelShape TOP = Block.box(0.0D, 8.0D, 0.0D, 16.0D, 16.0D, 16.0D);
-    public static final EnumProperty<HardpointType> TYPE = ModBlockStates.HARDPOINT_TYPE;
+public class AluminumWingHardpointBlock extends HorizontalDirectionalBlock implements EntityBlock {
+    public static final VoxelShape HITBOX = Block.box(0, 0, 0, 16, 11, 16);
     public static final EnumProperty<Missiletype> MISSILE_TYPE = ModBlockStates.MISSILE_TYPE;
 
-
-    public WingtipHardpointBlock(Properties properties) {
-        super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(TYPE, HardpointType.BOTTOM).setValue(MISSILE_TYPE, Missiletype.EMPTY));
+    public AluminumWingHardpointBlock(Properties pProperties) {
+        super(pProperties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(MISSILE_TYPE, Missiletype.EMPTY));
     }
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(FACING, TYPE, MISSILE_TYPE);
-    }
-
-    @NotNull
-    public VoxelShape getShape(BlockState blockState,@NotNull BlockGetter level,@NotNull BlockPos pos,@NotNull CollisionContext context){
-        HardpointType hardpointType = blockState.getValue(TYPE);
-        return switch (hardpointType) {
-            case BOTTOM -> BOTTOM;
-            case TOP -> TOP;
-        };
+        builder.add(FACING, MISSILE_TYPE);
     }
 
     @Override
@@ -64,34 +49,32 @@ public class WingtipHardpointBlock extends HorizontalDirectionalBlock implements
     @NotNull
     @Override
     public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        if (!level.isClientSide()) {
-            Missiletype current = blockState.getValue(MISSILE_TYPE);
-            Missiletype updated = HardpointProcedures.reload(current, player, interactionHand);
-            if (updated != current) {
-                level.setBlock(blockPos, blockState.setValue(MISSILE_TYPE, updated), 3);
+        if (!level.isClientSide){
+            Missiletype currentType = blockState.getValue(MISSILE_TYPE);
+            Missiletype updatedType = HardpointProcedures.reload(currentType, player, interactionHand);
+            if (updatedType != currentType) {
+                level.setBlock(blockPos, blockState.setValue(MISSILE_TYPE, updatedType), 3);
             }
         }
-        return InteractionResult.sidedSuccess(level.isClientSide());
+        return InteractionResult.sidedSuccess(level.isClientSide);
     }
 
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        BlockPos blockPos = context.getClickedPos();
-        BlockState blockState1 = this.defaultBlockState().setValue(FACING, context.getHorizontalDirection()).setValue(TYPE, HardpointType.BOTTOM).setValue(MISSILE_TYPE, Missiletype.EMPTY);
-        Direction direction = context.getClickedFace();
-        return direction != Direction.DOWN && (direction == Direction.UP || !(context.getClickLocation().y - (double)blockPos.getY() > 0.5D)) ? blockState1: blockState1.setValue(TYPE,  HardpointType.TOP).setValue(MISSILE_TYPE, Missiletype.EMPTY);
+        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection()).setValue(MISSILE_TYPE, Missiletype.EMPTY);
     }
 
-    @Override
     @Nullable
-    public <T extends BlockEntity>BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
+    @Override
+    public <T extends BlockEntity>BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
         return (lvl, pos, st, blockEntity) -> {
             if (!level.isClientSide()) {
-                if (blockEntity instanceof WingtipHardpointBlockEntity be){
+                if (blockEntity instanceof AluminumWingHardpointBlockEntity be) {
                     be.tick();
                 }
-            } else {
+            }
+            else {
                 return;
             }
         };
@@ -109,9 +92,8 @@ public class WingtipHardpointBlock extends HorizontalDirectionalBlock implements
     }
 
 
-
     @Override
-    public @org.jetbrains.annotations.Nullable BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new WingtipHardpointBlockEntity(pos, state);
+    public @Nullable BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return new AluminumWingHardpointBlockEntity(pPos, pState);
     }
 }

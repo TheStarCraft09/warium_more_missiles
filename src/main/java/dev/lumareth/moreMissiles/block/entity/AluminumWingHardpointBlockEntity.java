@@ -19,8 +19,7 @@ import net.minecraft.world.phys.Vec3;
 
 import static dev.lumareth.moreMissiles.block.states.ModBlockStates.MISSILE_TYPE;
 
-
-public class WingtipHardpointBlockEntity extends BlockEntity {
+public class AluminumWingHardpointBlockEntity extends BlockEntity {
     private BlockPos ControlPos;
     private Vec3 TargetPos;
     private Vec3 TargetVelocity;
@@ -29,10 +28,8 @@ public class WingtipHardpointBlockEntity extends BlockEntity {
     private double channel = 0D;
     private boolean was_powered = false;
 
-
-
-    public WingtipHardpointBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.WINGTIP_HARDPOINT.get(), pos, state);
+    public AluminumWingHardpointBlockEntity( BlockPos pPos, BlockState pBlockState) {
+        super(ModBlockEntities.ALUMINUM_WING_HARDPOINT.get(), pPos, pBlockState);
     }
 
     @Override
@@ -56,6 +53,7 @@ public class WingtipHardpointBlockEntity extends BlockEntity {
             compoundTag.putDouble("Channel", this.channel);
         }
     }
+
 
     public void tick() {
         CompoundTag data = this.getPersistentData();
@@ -107,41 +105,36 @@ public class WingtipHardpointBlockEntity extends BlockEntity {
         Vec3 launchDirection = getLaunchDirection();
         switch (blockState.getValue(MISSILE_TYPE)) {
             case IR -> {
-                HardpointType hardpointType = blockState.getValue(ModBlockStates.HARDPOINT_TYPE);
+                HardpointType hardpointType = null;
                 HardpointProcedures.fireSeekerSpear(level, this.worldPosition, hardpointType, launchDirection);
             }
             case SARH -> {
-                HardpointType hardpointType = blockState.getValue(ModBlockStates.HARDPOINT_TYPE);
+                HardpointType hardpointType = null;
                 HardpointProcedures.fireRadarSpear(level, this.worldPosition, hardpointType, launchDirection);
             }
             case SACLOCS -> {
-                HardpointType hardpointType = blockState.getValue(ModBlockStates.HARDPOINT_TYPE);
+                HardpointType hardpointType = null;
                 HardpointProcedures.fireStrikeSpear(level, this.worldPosition, hardpointType, launchDirection);
             }
         }
         level.setBlock(this.worldPosition, blockState.setValue(MISSILE_TYPE, Missiletype.EMPTY), Block.UPDATE_CLIENTS);
     }
 
-    public Vec3 getLaunchDirection() {
+    public Vec3 getLaunchDirection(){
         Vec3 launchDirection = Vec3.ZERO;
-        Direction direction =
-                this.getBlockState().getValue(WingtipHardpointBlock.FACING);
-
-        return switch (direction) {
-            case NORTH, SOUTH -> new Vec3(1D, 0D, 0D);
-            case EAST, WEST -> new Vec3(0D, 0D, -1D);
-            default -> Vec3.ZERO;
-        };
+        Direction direction = this.getBlockState().getValue(WingtipHardpointBlock.FACING);
+        switch (direction) {
+            case NORTH -> launchDirection = new Vec3(0, 0, -1);
+            case SOUTH -> launchDirection = new Vec3(0, 0, 1);
+            case EAST -> launchDirection = new Vec3(1, 0, 0);
+            case WEST -> launchDirection = new Vec3(-1, 0, 0);
+        }
+        return launchDirection;
     }
 
     @Override
     public ClientboundBlockEntityDataPacket getUpdatePacket() {
         return ClientboundBlockEntityDataPacket.create(this);
-    }
-
-    @Override
-    public CompoundTag getUpdateTag(){
-        return this.saveWithFullMetadata();
     }
 
 }

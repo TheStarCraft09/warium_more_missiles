@@ -1,6 +1,7 @@
 package dev.lumareth.moreMissiles.block;
 
 import dev.lumareth.moreMissiles.MoreMissiles;
+import dev.lumareth.moreMissiles.block.entity.AluminumWingHardpointBlockEntity;
 import dev.lumareth.moreMissiles.block.entity.WingtipHardpointBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.registries.DeferredRegister;
@@ -17,4 +18,11 @@ public class ModBlockEntities {
                             WingtipHardpointBlockEntity::new,
                             ModBlocks.EMPTY_WINGTIP_MISSILE_HARDPOINT.get()
                     ).build(null));
+    public static final RegistryObject<BlockEntityType<AluminumWingHardpointBlockEntity>> ALUMINUM_WING_HARDPOINT =
+            BLOCK_ENTITIES.register("aluminum_wing_hardpoint",
+                    () -> BlockEntityType.Builder.of(
+                            AluminumWingHardpointBlockEntity::new,
+                            ModBlocks.ALUMINUM_WING_HARDPOINT.get()
+                    ).build(null));
+
 }
