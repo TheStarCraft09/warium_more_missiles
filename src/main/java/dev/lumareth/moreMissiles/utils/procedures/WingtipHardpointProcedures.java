@@ -3,7 +3,9 @@ package dev.lumareth.moreMissiles.utils.procedures;
 import dev.lumareth.moreMissiles.block.records.ControllerTargetData;
 import dev.lumareth.moreMissiles.block.states.HardpointType;
 import dev.lumareth.moreMissiles.block.states.Missiletype;
+import net.mcreator.crustychunks.entity.RadarSpearMissileProjectileEntity;
 import net.mcreator.crustychunks.entity.SeekerSpearMissileProjectileEntity;
+import net.mcreator.crustychunks.entity.StrikeSpearProjectileEntity;
 import net.mcreator.crustychunks.init.CrustyChunksModEntities;
 import net.mcreator.crustychunks.init.CrustyChunksModItems;
 import net.minecraft.core.BlockPos;
@@ -117,7 +119,7 @@ public class WingtipHardpointProcedures {
         }
     }
 
-    public static void fireSeekerSpear(Level level, BlockPos pos, HardpointType state, Vec3 facing) {
+    public static void fireSeekerSpear(Level level, BlockPos hardpointPos, HardpointType state, Vec3 facing) {
         if (!level.isClientSide()) {
             ServerLevel serverLevel = (ServerLevel) level;
             SeekerSpearMissileProjectileEntity missile = new SeekerSpearMissileProjectileEntity(CrustyChunksModEntities.SEEKER_SPEAR_MISSILE_PROJECTILE.get(), serverLevel);
@@ -128,11 +130,8 @@ public class WingtipHardpointProcedures {
             missile.setPierceLevel((byte) 10);
             missile.setCritArrow(true);
 
-            if (state == HardpointType.BOTTOM) {
-                missile.setPos(pos.getX() + 0.5D, pos.getY() + returnLaunchOffset(state), pos.getZ() + 0.5D);
-            } else if (state == HardpointType.TOP) {
-                missile.setPos(pos.getX() + 0.5D, pos.getY() + returnLaunchOffset(state), pos.getZ() + 0.5D);
-            }
+            missile.setPos(hardpointPos.getX() + 0.5D, hardpointPos.getY() + returnLaunchOffset(state), hardpointPos.getZ() + 0.5D);
+
             double LaunchX = facing.x;
             double LaunchY = facing.y;
             double LaunchZ = facing.z;
@@ -141,4 +140,58 @@ public class WingtipHardpointProcedures {
             serverLevel.addFreshEntity(missile);
         }
     }
+
+    public static void fireRadarSpear(Level level, BlockPos hardpointPos, HardpointType state, Vec3 facing){
+        if (!level.isClientSide) {
+            ServerLevel serverLevel = (ServerLevel) level;
+            RadarSpearMissileProjectileEntity missile = new RadarSpearMissileProjectileEntity(CrustyChunksModEntities.RADAR_SPEAR_MISSILE_PROJECTILE.get(), serverLevel);
+
+            missile.setBaseDamage(10.0D);
+            missile.setKnockback(2);
+            missile.setSilent(true);
+            missile.setPierceLevel((byte) 10);
+            missile.setCritArrow(true);
+
+            missile.setPos(hardpointPos.getX() + 0.5D, hardpointPos.getY() + returnLaunchOffset(state), hardpointPos.getZ() + 0.5D);
+
+            double LaunchX = facing.x;
+            double LaunchY = facing.y;
+            double LaunchZ = facing.z;
+
+            missile.getPersistentData().putDouble("LX", hardpointPos.getX());
+            missile.getPersistentData().putDouble("LY", hardpointPos.getY());
+            missile.getPersistentData().putDouble("LZ", hardpointPos.getZ());
+
+            missile.shoot(LaunchX, LaunchY, LaunchZ, 4.0F, 0.0F);
+            serverLevel.addFreshEntity(missile);
+
+        }
+    }
+    public static void fireStrikeSpear(Level level, BlockPos hardpointPos, HardpointType state, Vec3 facing){
+        if (!level.isClientSide) {
+            ServerLevel serverLevel = (ServerLevel) level;
+            StrikeSpearProjectileEntity missile = new StrikeSpearProjectileEntity(CrustyChunksModEntities.STRIKE_SPEAR_PROJECTILE.get(), serverLevel);
+
+            missile.setBaseDamage(10.0D);
+            missile.setKnockback(2);
+            missile.setSilent(true);
+            missile.setPierceLevel((byte) 10);
+            missile.setCritArrow(true);
+
+            missile.setPos(hardpointPos.getX() + 0.5D, hardpointPos.getY() + returnLaunchOffset(state), hardpointPos.getZ() + 0.5D);
+
+            double LaunchX = facing.x;
+            double LaunchY = facing.y;
+            double LaunchZ = facing.z;
+
+            missile.getPersistentData().putDouble("LX", hardpointPos.getX());
+            missile.getPersistentData().putDouble("LY", hardpointPos.getY());
+            missile.getPersistentData().putDouble("LZ", hardpointPos.getZ());
+
+            missile.shoot(LaunchX, LaunchY, LaunchZ, 3.0F, 0.0F);
+            serverLevel.addFreshEntity(missile);
+
+        }
+    }
+
 }

@@ -109,9 +109,17 @@ public class WingtipHardpointBlockEntity extends BlockEntity {
             case IR -> {
                 HardpointType hardpointType = blockState.getValue(ModBlockStates.HARDPOINT_TYPE);
                 WingtipHardpointProcedures.fireSeekerSpear(level, this.worldPosition, hardpointType, launchDirection);
-                level.setBlock(this.worldPosition, blockState.setValue(MISSILE_TYPE, Missiletype.EMPTY), Block.UPDATE_CLIENTS);
+            }
+            case SARH -> {
+                HardpointType hardpointType = blockState.getValue(ModBlockStates.HARDPOINT_TYPE);
+                WingtipHardpointProcedures.fireRadarSpear(level, this.worldPosition, hardpointType, launchDirection);
+            }
+            case SACLOCS -> {
+                HardpointType hardpointType = blockState.getValue(ModBlockStates.HARDPOINT_TYPE);
+                WingtipHardpointProcedures.fireStrikeSpear(level, this.worldPosition, hardpointType, launchDirection);
             }
         }
+        level.setBlock(this.worldPosition, blockState.setValue(MISSILE_TYPE, Missiletype.EMPTY), Block.UPDATE_CLIENTS);
     }
 
     public Vec3 getLaunchDirection() {

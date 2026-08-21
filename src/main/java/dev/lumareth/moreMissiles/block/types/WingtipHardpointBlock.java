@@ -98,12 +98,15 @@ public class WingtipHardpointBlock extends HorizontalDirectionalBlock implements
 
     @Override
     public void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState newState, boolean isMoving) {
-        super.onRemove(blockState, level, blockPos, newState, isMoving);
-        ItemStack itemStack = WingtipHardpointProcedures.returnDroppedItem(blockState.getValue(MISSILE_TYPE));
-        if (!itemStack.isEmpty()) {
-            Block.popResource(level, blockPos, itemStack);
+        if (blockState.getBlock() != newState.getBlock()) {
+            ItemStack itemStack = WingtipHardpointProcedures.returnDroppedItem(blockState.getValue(MISSILE_TYPE));
+            if (!itemStack.isEmpty()) {
+                Block.popResource(level, blockPos, itemStack);
+            }
+            super.onRemove(blockState, level, blockPos, newState, isMoving);
         }
     }
+
 
 
     @Override
